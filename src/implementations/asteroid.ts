@@ -1,6 +1,6 @@
 import { AsteroidI, DatableI, DataCalcI, VectorI } from "../common/declarations";
 import { Vector } from "../common/math";
-import { Galaxy } from "./galaxy";
+import { GalaxyE } from "./galaxy";
 import { MovingObject } from "./movingObject";
 
 export class Asteroid extends MovingObject implements AsteroidI, DatableI<AsteroidI> {
@@ -9,7 +9,7 @@ export class Asteroid extends MovingObject implements AsteroidI, DatableI<Astero
     size = -1
 
     constructor(
-        myGalaxy: () => Galaxy, 
+        myGalaxy: () => GalaxyE, 
         size: number, 
         pos: VectorI, 
         a: number, 

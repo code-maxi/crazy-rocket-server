@@ -2,17 +2,17 @@ import { DatableI, DataCalcI, GeoI, MovingObjectI } from "../common/declarations
 import { Geo, Vector } from "../common/math";
 import { GalaxyReference_ } from "../declarations";
 import { newID } from "../server";
-import { Galaxy } from "./galaxy";
+import { GalaxyE } from "./galaxy";
 import { User } from "./user";
 
 export abstract class MovingObject implements MovingObjectI, DataCalcI<MovingObjectI>, GalaxyReference_ {
     abstract img: string
     id: number
     movingVector = new Vector(0,0)
-    myGalaxy: () => Galaxy
+    myGalaxy: () => GalaxyE
     geo: Geo
 
-    constructor(myGalaxy: () => Galaxy, id?: number, geo?: GeoI) {
+    constructor(myGalaxy: () => GalaxyE, id?: number, geo?: GeoI) {
         this.id = id ? id : newID()
         this.geo = new Geo(geo)
         this.myGalaxy = myGalaxy

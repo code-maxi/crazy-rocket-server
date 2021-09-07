@@ -2,7 +2,7 @@ import { log } from "../common/adds";
 import { DatableI, GalaxyTouchingObjectsI, RocketFireI, RocketTypeI, RocketI, DataCalcI } from "../common/declarations";
 import { inRange, Vector } from "../common/math";
 import { rocketTypes } from "../common/rocketTypes";
-import { Galaxy } from "./galaxy";
+import { GalaxyE } from "./galaxy";
 import { MovingObject } from "./movingObject";
 import { RocketFire } from "./rocketFire";
 import { User } from "./user";
@@ -20,7 +20,7 @@ export class Rocket extends MovingObject implements RocketI, DatableI<RocketI> {
     rocketType: RocketTypeI = rocketTypes('standart-rocket')
     rocketTypeId: rocketTypes = this.rocketType.id
 
-    constructor(myUser: () => User, myGalaxy: () => Galaxy, id?: number) {
+    constructor(myUser: () => User, myGalaxy: () => GalaxyE, id?: number) {
         super(myGalaxy, id)
         if (id) this.id = id
         this.myUser = myUser
@@ -54,6 +54,7 @@ export class Rocket extends MovingObject implements RocketI, DatableI<RocketI> {
                     this.rocketType.acceleratingSpeed
                 ).mul(s)
             )
+            console.log('accelerating')
         }
 
         super.calc(s)

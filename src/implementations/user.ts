@@ -3,7 +3,7 @@ import { logUndefined, removeItem } from "../common/adds";
 import { DatableI, GalaxyObjectsI, GalaxySettingsI, GeoImplI, SendFormatI, UserPropsI, UserI } from "../common/declarations";
 import { Geo, inRange, Vector } from "../common/math";
 import { galaxies, logAllUsers, loginUsers, newID, removeLoginUser } from "../server";
-import { createGalaxy, Galaxy } from "./galaxy";
+import { createGalaxy } from "./galaxy";
 import { Rocket } from "./rocket";
 
 export class User implements UserI, DatableI<UserI> {

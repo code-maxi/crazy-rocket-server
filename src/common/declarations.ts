@@ -10,7 +10,7 @@ export interface DataCalcI<T> extends DatableI<T> {
 
 export interface SendFormatI {
     header: string
-    value: any
+    value?: any
 }
 
 // Galaxy and User
@@ -19,6 +19,7 @@ export interface GalaxySettingsI {
     name: string
     password: string
     passwordJoin?: boolean
+    level: number
 }
 
 export interface CreateGalaxySettingsI extends GalaxySettingsI {
@@ -37,7 +38,6 @@ export interface GalaxyTouchingObjectsI {
 export interface GalaxyWithoutObjectsI { // data sent to login client
     users: UserI[]
     galaxyParams: GalaxySettingsI
-    level: number
     width: number
     height: number
     fps: number | null

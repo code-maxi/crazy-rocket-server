@@ -1,5 +1,5 @@
-import { Galaxy } from "./implementations/galaxy";
+import { GalaxyE } from "./implementations/galaxy";
 
 export interface GalaxyReference_ {
-    myGalaxy: () => Galaxy
+    myGalaxy: () => GalaxyE
 }

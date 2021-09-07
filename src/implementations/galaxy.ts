@@ -4,10 +4,9 @@ import { Asteroid } from "./asteroid";
 import { Rocket } from "./rocket";
 import { User } from "./user";
 
-export class Galaxy implements GalaxyI, DatableI<GalaxyI> {
+export class GalaxyE implements GalaxyI, DatableI<GalaxyI> {
     galaxyParams: GalaxySettingsI
 
-    level = 1
     width = 0
     height = 0
 
@@ -29,17 +28,17 @@ export class Galaxy implements GalaxyI, DatableI<GalaxyI> {
         this.galaxyParams = params
     }
 
-    initGalaxy(level: number) {
+    initGalaxy() {
         this.clearObjects()
         
-        const levelFactor = level + 3
+        const levelFactor = this.galaxyParams.level + 3
         const levelSize = levelFactor * 200
         const randomNumber = (Math.random() * 1.5) + 5
         
         this.width = levelSize * randomNumber * 1.5
         this.height = levelSize * randomNumber
 
-        for (let i = 0; i < (this.level + 5) * 2; i ++) {
+        for (let i = 0; i < (this.galaxyParams.level + 5) * 2; i ++) {
             this.objects.asteroids.push(new Asteroid(() => this, i, {
                 x: this.width * Math.random(),
                 y: this.width * Math.random()
@@ -71,7 +70,6 @@ export class Galaxy implements GalaxyI, DatableI<GalaxyI> {
         return {
             users: this.users.map(u => u.data()),
             galaxyParams: this.galaxyParams,
-            level: this.level,
             width: this.width,
             height: this.height,
             fps: this.fps
@@ -91,8 +89,8 @@ export class Galaxy implements GalaxyI, DatableI<GalaxyI> {
 
 export function createGalaxy(params: GalaxySettingsI) { // TODO: Integrate data base
     if (galaxies.find(g => g.galaxyParams.name === params.name) === undefined) {
-        const g = new Galaxy(params)
-        g.initGalaxy(1)
+        const g = new GalaxyE({ ...params, level: 1 })
+        g.initGalaxy()
         galaxies.push(g)
         return g
     } else return null

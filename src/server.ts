@@ -1,18 +1,18 @@
 import * as WS from "websocket";
 import { createServer } from "http"
 import { User } from "./implementations/user";
-import { Galaxy } from "./implementations/galaxy";
+import { GalaxyE } from "./implementations/galaxy";
 import { removeItem } from "./common/adds";
 
 export const consts = {
     targetReloadTime: 20,
-    sendWholeDataInterval: 10 // x * [reloadInterval] !
+    sendWholeDataInterval: 100 // x * [reloadInterval] !
 }
 
 export let server: WS.server
 
 export let loginUsers: User[] = []
-export let galaxies: Galaxy[] = []
+export let galaxies: GalaxyE[] = []
 export let recalcInterval: NodeJS.Timer
 
 export function removeLoginUser(u: User) {
@@ -70,14 +70,14 @@ export function init() {
 
     let factor = 0
     
-    while (true) {
+    setInterval(() => {
         const t1 = Date.now()
         galaxies.forEach(g => {
             g.calculated = false
             g.fps = (1/factor) * (1000 / consts.targetReloadTime)
         })
         galaxies.forEach(g => {
-            g.calc(factor)
+            g.calc(1)
             g.users.forEach(u => u.calcView())
         })
         const t2 = Date.now()
@@ -94,5 +94,5 @@ export function init() {
 
         if (sendWholeDataIntervalCount < consts.sendWholeDataInterval) sendWholeDataIntervalCount ++
         else sendWholeDataIntervalCount = 0
-    }
+    }, consts.targetReloadTime)
 }
