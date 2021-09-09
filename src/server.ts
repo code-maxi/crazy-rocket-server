@@ -1,12 +1,12 @@
 import * as WS from "websocket";
 import { createServer } from "http"
-import { User } from "./implementations/user";
-import { GalaxyE } from "./implementations/galaxy";
+import { User } from "./galaxy-environment/implementations/user";
+import { GalaxyE } from "./galaxy-environment/implementations/galaxy";
 import { removeItem } from "./common/adds";
 
 export const consts = {
     targetReloadTime: 20,
-    sendWholeDataInterval: 100 // x * [reloadInterval] !
+    sendWholeDataInterval: 10 // x * [reloadInterval] !
 }
 
 export let server: WS.server
@@ -70,14 +70,14 @@ export function init() {
 
     let factor = 0
     
-    setInterval(() => {
+    while (true) {
         const t1 = Date.now()
         galaxies.forEach(g => {
             g.calculated = false
             g.fps = (1/factor) * (1000 / consts.targetReloadTime)
         })
         galaxies.forEach(g => {
-            g.calc(1)
+            g.calc(factor)
             g.users.forEach(u => u.calcView())
         })
         const t2 = Date.now()
@@ -94,5 +94,5 @@ export function init() {
 
         if (sendWholeDataIntervalCount < consts.sendWholeDataInterval) sendWholeDataIntervalCount ++
         else sendWholeDataIntervalCount = 0
-    }, consts.targetReloadTime)
+    }
 }
